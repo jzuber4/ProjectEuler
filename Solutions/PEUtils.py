@@ -10,10 +10,10 @@ def Fibonacci():
         a, b = b, a + b
 
 """
-Generator that returns successive Prime Numbers
+Private generator that returns successive Prime Numbers
 Uses an expanding Eratosthenes Sieve
 """
-def PrimeNumbers():
+def _PrimeNumbers():
     # start with length of 4 (doubled to be 8)
     is_prime = 4 * [False]
     # first prime is 2
@@ -42,6 +42,20 @@ def PrimeNumbers():
                 primes.append(i + highest)
                 yield i + highest
 
+prime_numbers = []
+prime_number_gen = _PrimeNumbers()
+
+# public prime number generator
+# uses stored prime numbers
+def PrimeNumbers():
+    curr = 0
+    while True:
+        if curr == len(prime_numbers):
+            prime_numbers.append(prime_number_gen.next())
+        yield prime_numbers[curr]
+        curr += 1
+
+
 """
 Return a list of the prime factors of N in sorted order.
 Each factor appears a number of times equal to its multiplicity.
@@ -53,6 +67,7 @@ PrimeFactors(1) => []  // no prime factors
 def PrimeFactors(N):
     # get successive primes
     primes = PrimeNumbers()
+
     factors = []
     while N > 1:
         p = primes.next()

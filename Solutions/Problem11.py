@@ -2,8 +2,7 @@
 Problem 11: Largest product in a grid
 Find the largest product of k numbers in a row in a grid read from stdin
 usage:
-$ python Problem11.py 4 < Problem11.txt
-$ 70600674
+$ python Problem11.py k < input_grid.txt
 """
 import sys
 
