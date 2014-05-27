@@ -1,8 +1,9 @@
 """
 Problem 12: Highly divisible triangular number
 Calculates the first triangular number with over N divisors
+If N is omitted, it assumes the value of 500
 usage:
-$ python Problem12.py N
+$ python Problem12.py [N = 500]
 """
 from PEUtils import PrimeFactors, PrimeNumbers
 import sys
@@ -34,7 +35,7 @@ def TriangleNumber(n):
     return ((n + 1) * n) / 2
 
 def main():
-    N = int(sys.argv[1])
+    N = int(sys.argv[1]) if len(sys.argv) > 1 else 500
     num_divisors = 0
     i = 0
     while num_divisors <= N:
@@ -44,7 +45,7 @@ def main():
 
         num_divisors = NumberOfDivisors(triangle_num)
 
-    print TriangleNumber(i), num_divisors
+    print TriangleNumber(i)
 
 main()
 

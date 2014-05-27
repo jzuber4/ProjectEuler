@@ -1,14 +1,28 @@
 # Problem 8: Largest product in a series
 # Find the largest product of k digits in a series of digits
-# read from stdin
+# read from an input file
+# k defaults to 13, input file defaults to Problem08.txt
+# Must have either 0 or 2 arguments, must be run in current directory if arguments omitted
 # usage:
-# $ python Problem8.py k < input
+# $ python Problem08.py [k = 13] [input = Problem08.txt]
 import sys
 
 def main():
-    k = int(sys.argv[1])
+    k = 0
+    f = None
+    try:
+        k = int(sys.argv[1]) if len(sys.argv) > 1 else 13
+        f = open(sys.argv[2]) if len(sys.argv) > 2 else open("Problem08.txt")
+    except:
+        print "usage: python Problem08.py [k = 13] [input = \"Problem08.txt\"]"
+        print ("If the input file is given, k must be given before it.\n"
+            + "If the input file is not specified, the program must be run in"
+            + " the same directory as Problem08.txt")
+        return
+
+
     # read from stdin, remove newlines
-    l = "".join(sys.stdin.read().split("\n"))
+    l = "".join(f.read().split("\n"))
     nums = []
     for i in l:
         nums.append(int(i))

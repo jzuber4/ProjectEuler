@@ -2,8 +2,9 @@
 Problem 14: Longest Collatz Sequence
 Finds the number under N > 1 with the longest collatz sequence
 Saves old results to prevent recomputations
+If N is omitted, it assumes the value of 1 million
 usage:
-$ python Problem14.py N
+$ python Problem14.py [N = 1000000]
 """
 import sys
 
@@ -23,7 +24,11 @@ def Collatz(n):
     return collatz_lengths[n]
 
 def main():
-    N = int(sys.argv[1])
+    N = int(sys.argv[1]) if len(sys.argv) > 1 else 1000000
+    if N <= 1:
+        print "usage: python Problem14.py [N = 1000000]"
+        print "N must be greater than 1"
+        return
 
     # try all numbers from 1 to N
     max_collatz = 0

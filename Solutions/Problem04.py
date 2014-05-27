@@ -1,7 +1,7 @@
 # Problem 4: Largest Palindrome Product
 # Find the largest palindrome number that is a product of two three digit numbers
 # usage:
-# $ python Problem4.py
+# $ python Problem04.py
 import sys
 
 # helper function, returns true if number is palindrome, false if not

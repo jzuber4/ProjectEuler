@@ -14,8 +14,7 @@ Private generator that returns successive Prime Numbers
 Uses an expanding Eratosthenes Sieve
 """
 def _PrimeNumbers():
-    # start with length of 4 (doubled to be 8)
-    is_prime = 4 * [False]
+    is_prime = [False]
     # first prime is 2
     primes = [2]
     # first number tested is 3

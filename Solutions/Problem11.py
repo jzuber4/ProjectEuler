@@ -1,8 +1,11 @@
 """
 Problem 11: Largest product in a grid
-Find the largest product of k numbers in a row in a grid read from stdin
+Find the largest product of k numbers in a row in a grid read from an input file
+If k is not specified, it assumes the value of 4
+If the input file is not specified, it assumes the value of "Problem11.txt"
+If the input file is specified, k must also be specified before it
 usage:
-$ python Problem11.py k < input_grid.txt
+$ python Problem11.py [k = 4] [input = "Problem11.txt"]
 """
 import sys
 
@@ -26,10 +29,21 @@ def Look(lines, k, x, y, delta_x, delta_y):
 
 
 def main():
-    k = int(sys.argv[1])
+    k = 0
+    f = None
+    try:
+        k = int(sys.argv[1]) if len(sys.argv) > 1 else 4
+        f = open(sys.argv[2]) if len(sys.argv) > 2 else open("Problem11.txt")
+    except:
+        print "usage: python Problem11.py [k = 4] [input = \"Problem11.txt\"]"
+        print ("If the input file is given, k must be given before it.\n"
+            + "If the input file is not specified, the program must be run in"
+            + " the same directory as Problem11.txt")
+        return
+
     lines = []
     # read in
-    for l in sys.stdin:
+    for l in f:
         lines.append([int(v) for v in l.split()])
 
     h = len(lines)

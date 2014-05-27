@@ -1,7 +1,8 @@
 # Problem 5: Smallest multiple
 # find the smallest number is evenly divisible by integers 1 through N
+# if N is omitted, 20 is used
 # usage:
-# $ python Problem5.py N
+# $ python Problem05.py [N = 20]
 from PEUtils import PrimeFactors
 import sys
 
@@ -40,7 +41,7 @@ def merge(list_a, list_b):
 
 
 def main():
-    N = int(sys.argv[1])
+    N = int(sys.argv[1]) if len(sys.argv) > 1 else 20
     factors = []
     # get common factors of numbers 2 through N + 1
     for i in range(2, N + 1):
