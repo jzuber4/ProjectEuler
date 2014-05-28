@@ -70,6 +70,9 @@ def PrimeFactors(N):
     factors = []
     while N > 1:
         p = primes.next()
+        if p * p > N:
+            factors.append(N)
+            break
 
         # divide by a number of times equal to its multiplicity
         while N % p == 0:
@@ -104,5 +107,33 @@ def PythagoreanTriples(max_c):
         while i[2] <= max_c:
             yield i
             i = [i+j for (i,j) in zip(i, primitive)]
+
+# http://math.stackexchange.com/questions/22721/is-there-a-formula-to-calculate-the-sum-of-all-proper-divisors-of-a-number?rq=1
+def SumOfProperDivisors(N):
+    factors = PrimeFactors(N)
+    count = 0
+    last_factor = 0
+    this_term = 1
+    prod = 1
+
+    # 2^3 * 3 * 5 => (1 + 2^1 + 2^2 + 2^3) * (1 + 3) * (1 + 5)
+    # add up powers of a factor as its multiplicity is counted up
+    # multiply that sum into the product
+    for f in factors:
+        if last_factor == f:
+            # increase the term
+            count += 1
+            this_term += f ** count
+        else:
+            # multiply in the term, start new term
+            prod *= this_term
+            count = 1
+            this_term = 1 + f
+            last_factor = f
+    prod *= this_term
+
+    return prod - N
+
+
 
 
