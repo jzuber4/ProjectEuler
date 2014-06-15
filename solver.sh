@@ -2,7 +2,7 @@
 function usage {
    echo Usage: solver.sh [-t]
    echo Runs all the problems in the Solutions directory 
-   echo flag: -t times each problem
+   echo flag: -t runs each problem with the \'time\' command
    exit 1
 }
 

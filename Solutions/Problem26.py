@@ -12,7 +12,7 @@ from PEUtils import OptionalArg
 def LongDivisionStep(dividend, divisor):
     index = 1
     dividend_string = str(dividend)
-    dividend_term = int(dividend_string[:1])
+    dividend_term = int(dividend_string[:index])
     quotient = ""
     first = True
 
@@ -32,33 +32,25 @@ def LongDivisionStep(dividend, divisor):
     return quotient, new_dividend
 
 def LongDivision(dividend, divisor):
-    quotients = []
     seen_dividends = {}
-    index = 0
-    digits_remaining = len(str(dividend))
+    quotient_string = ""
+
     while dividend != 0:
         # performs a step of long division, and returns the quotient and dividend
         quotient, dividend = LongDivisionStep(dividend, divisor)
-
-        # digits until below the decimal
-        digits_remaining -= len(quotient)
+        quotient_string += quotient
 
         # repeating digits detection
         if dividend in seen_dividends:
-            return reduce(lambda built_string, quotient: built_string + quotient, quotients)
+            return quotient_string
 
-        # save last time that dividend has been seen
-        if digits_remaining < 0:
-            seen_dividends[dividend] = index
-
-        quotients.append(quotient)
+        # we have seen this
+        seen_dividends[dividend] = True
 
         # advance to the next iteration
-        index += 1
         dividend *= 10
 
-    formatted = reduce(lambda built_string, quotient: built_string + quotient, quotients)
-    return formatted
+    return quotient_string
 
 def main():
     N = int(OptionalArg(0, 1000))
