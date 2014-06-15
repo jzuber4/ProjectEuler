@@ -32,7 +32,7 @@ def LongDivisionStep(dividend, divisor):
     return quotient, new_dividend
 
 def LongDivision(dividend, divisor):
-    seen_dividends = {}
+    seen_dividends = set()
     quotient_string = ""
 
     while dividend != 0:
@@ -45,7 +45,7 @@ def LongDivision(dividend, divisor):
             return quotient_string
 
         # we have seen this
-        seen_dividends[dividend] = True
+        seen_dividends.add(dividend)
 
         # advance to the next iteration
         dividend *= 10

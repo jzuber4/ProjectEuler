@@ -1,5 +1,23 @@
 import sys
 
+
+"""
+Simple method for determining primality.
+Source: https://en.wikipedia.org/wiki/Primality_test
+"""
+def IsPrime(num):
+    if num <= 3:
+        if num <= 1:
+            return False
+        return True
+    if not num%2 or not num%3:
+        return False
+    for i in range(5, int(num**0.5) + 1, 6):
+        if not num%i or not num%(i + 2):
+            return False
+    return True
+
+
 """
 Generator that returns successive Fibonacci numbers,
 starting with 0, then 1
