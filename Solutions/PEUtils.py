@@ -1,3 +1,5 @@
+import sys
+
 """
 Generator that returns successive Fibonacci numbers,
 starting with 0, then 1
@@ -134,6 +136,7 @@ def SumOfProperDivisors(N):
 
     return prod - N
 
-
+def OptionalArg(index, default):
+    return sys.argv[index + 1] if len(sys.argv) > index + 1 else default
 
 
