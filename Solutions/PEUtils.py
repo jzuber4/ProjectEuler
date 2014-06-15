@@ -1,34 +1,5 @@
 import sys
 
-
-"""
-Simple method for determining primality.
-Source: https://en.wikipedia.org/wiki/Primality_test
-"""
-def IsPrime(num):
-    if num <= 3:
-        if num <= 1:
-            return False
-        return True
-    if not num%2 or not num%3:
-        return False
-    for i in range(5, int(num**0.5) + 1, 6):
-        if not num%i or not num%(i + 2):
-            return False
-    return True
-
-
-"""
-Generator that returns successive Fibonacci numbers,
-starting with 0, then 1
-"""
-def Fibonacci():
-    a = 0
-    b = 1
-    while True:
-        yield a
-        a, b = b, a + b
-
 """
 Private generator that returns successive Prime Numbers
 Uses an expanding Eratosthenes Sieve
@@ -61,8 +32,45 @@ def _PrimeNumbers():
                 primes.append(i + highest)
                 yield i + highest
 
+"""
+Shared state for several utilities. Allows caching of
+calculated primes.
+"""
 prime_numbers = []
+prime_number_set = set()
 prime_number_gen = _PrimeNumbers()
+
+"""
+Simple method for determining primality. Also, if primes
+have already been calculated, checks if it is in the list.
+Source: https://en.wikipedia.org/wiki/Primality_test
+"""
+def IsPrime(num):
+    if len(prime_numbers) > 0 and prime_numbers[-1] > num:
+        return num in prime_number_set
+    if num <= 3:
+        if num <= 1:
+            return False
+        return True
+    if not num%2 or not num%3:
+        return False
+    for i in range(5, int(num**0.5) + 1, 6):
+        if not num%i or not num%(i + 2):
+            return False
+    return True
+
+
+"""
+Generator that returns successive Fibonacci numbers,
+starting with 0, then 1
+"""
+def Fibonacci():
+    a = 0
+    b = 1
+    while True:
+        yield a
+        a, b = b, a + b
+
 
 # public prime number generator
 # uses stored prime numbers
@@ -70,7 +78,9 @@ def PrimeNumbers():
     curr = 0
     while True:
         if curr == len(prime_numbers):
-            prime_numbers.append(prime_number_gen.next())
+            next_p = prime_number_gen.next()
+            prime_numbers.append(next_p)
+            prime_number_set.add(next_p)
         yield prime_numbers[curr]
         curr += 1
 
