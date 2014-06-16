@@ -32,6 +32,8 @@ def _PrimeNumbers():
                 primes.append(i + highest)
                 yield i + highest
 
+        highest += len(is_prime)
+
 """
 Shared state for several utilities. Allows caching of
 calculated primes.
