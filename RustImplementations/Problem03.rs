@@ -3,17 +3,13 @@
   Find the largest prime factor of the number 600851475143
 */
 extern crate PEUtils;
-use PEUtils::PrimeNumbers;
+use PEUtils::prime_factors;
 
 fn main() {
 
-    for p in PrimeNumbers::new()
-        .take_while(|x| *x < 7920) {
-        println!("{}", p);
-    }
-    /*
-    let max_prime_factor = PrimeFactors(600851475143)
-        .fold(0, |b, a| max(b, a))
+    // calculate max prime factor
+    let max_prime_factor = prime_factors(600851475143)
+        .iter()
+        .fold(0, |b, &a| if b > a { b } else { a });
     println!("{}", max_prime_factor);
-    */
 }

@@ -91,3 +91,24 @@ impl Iterator<uint> for PrimeNumbers {
     }
 }
 
+pub fn prime_factors(n : u64) -> Vec<uint> {
+    let mut primes = PrimeNumbers::new();
+
+    let mut factors = vec![];
+    let mut n = n.clone();
+    while n > 1 {
+        let p = primes.next().clone().unwrap() as u64;
+        if p * p > n {
+            factors.push(n as uint);
+            break;
+        }
+        
+        while n % p == 0 {
+            factors.push(p as uint);
+            n /= p;
+        }
+    }
+
+    factors
+}
+
