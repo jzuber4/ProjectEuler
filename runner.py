@@ -6,6 +6,7 @@
 import inspect
 import argparse
 import os
+import sys
 import time
 from subprocess import Popen, PIPE
 from hashlib import sha256
@@ -42,13 +43,15 @@ def main():
                         help='Only output the answers.')
     args = parser.parse_args();
 
+    # change working directory to that of script
+    os.chdir(os.path.dirname(sys.argv[0]))
+
     # read in answers if checking
     # hashes.txt is a file of sha256 hexdigests
     hashed_answers = []
     if args.test:
         hashed_answers = open("hashed_answers.txt").read().split("\n")
         hashed_answers = hashed_answers[:-1] # split takes one too many
-
 
     # select implementation
     directory = ""
