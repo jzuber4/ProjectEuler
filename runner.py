@@ -163,7 +163,7 @@ def main():
         print "{} solutions ran in a total {:.4f} seconds".format(len(files), time.time() - start_time)
     if args.test and not args.just_answers:
         print "{} out of {} solutions terminated without error".format(len(files)-errors,len(files))
-        print "{} wrong answers, {} correct answers".format(wrong, correct)
+        print "{} correct, {} wrong".format(correct, wrong)
 
 """
  Helper to check the solution of a problem given the list
