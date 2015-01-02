@@ -125,10 +125,11 @@ def main():
 
         p = Popen(call, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 
+        output, err = p.communicate()
+
         if args.time:
             individual_end_time = time.time()
 
-        output, err = p.communicate()
         output = output.strip() # remove extraneous whitespace
 
         # check if there was an error
